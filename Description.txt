@@ -1,0 +1,16 @@
+Firstly, the base.html page was developed as the home page to accept the URL input by the user, 
+so that the file served by the same can be downloaded. 
+
+The approach follows multithreading in order to update the template for each chunk of the file
+downloaded. Once the URL is received on the /download endpoint, the index.html file is rendered
+where the socket connection is made ad the thread starts running. Each thread works for each chunk 
+and uses SocketIO to emit events upon processing of each chunk. This data is displayed on the client
+side asynchronously using SocketIO. 
+ 
+In iter_content(), there is no chunk_size mentioned. However, for large files, this parameter needs to 
+be altered in order to prevent the user from getting overwhelming data and also prevent lag. The chunk 
+size downloaded is stored in a variable and the leftover size is calculated. Chunk_size is estimated 
+based on the total size of the file. This is then sent as parameters in render_template() in order to 
+display the data in the front end. 
+
+
